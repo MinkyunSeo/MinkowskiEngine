@@ -386,10 +386,10 @@ def train(net, device, config):
     for i in range(config.max_steps):
         optimizer.zero_grad()
         try:
-            data_dict = train_iter.next()
+            data_dict = next(train_iter)
         except StopIteration:
             train_iter = iter(make_data_loader("train", is_minknet, config))
-            data_dict = train_iter.next()
+            data_dict = next(train_iter)
         input = create_input_batch(
             data_dict, is_minknet, device=device, quantization_size=config.voxel_size
         )
